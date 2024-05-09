@@ -1,0 +1,35 @@
+'''This code uses API keys and access tokens to perform sentiment analysis. You should create your twitter or X developer account and create a twitter app in that developer account to get API keys and access tokens. '''
+
+from textblob import TextBlob
+
+feedback1="i love the movie"
+feedback2="the mobile is bad"
+blob1=TextBlob(feedback1)
+blob2=TextBlob(feedback2)
+print(blob1.sentiment)
+print(blob2.sentiment)
+
+import tweepy
+from tweepy import OAuthHandler
+from textblob import TextBlob 
+
+consumer_key = 'E6fwgsFkIXy426jnXHmtlDPSD'
+consumer_secret = 'lsMQSpA2D0lMvDfGs5XwIjaQo6KbGKSQ78Bk1jDkNlvkhw4cEG'
+access_token = '1788439698949468160-zYyFcpNzSsd8jnpgOZIKDg5hFjeFOO'
+access_token_secret = 'jHKhxcHwOOVOxdrUsSr44O1VLzz8RAJOQ7gNopZoyYHwP'    
+ 
+auth = tweepy.OAuthHandler(consumer_key, consumer_secret)
+auth.set_access_token(access_token, access_token_secret)
+api = tweepy.API(auth)
+public_tweets=api.search_tweets('@imVkohli')   
+
+for tweet in public_tweets:
+    print(tweet.text)
+    analysis=TextBlob(tweet.text)
+    print(analysis.sentiment)
+    if analysis.sentiment[0] > 0:
+            print('positive')
+    elif analysis.sentiment[0]< 0:
+            print ('negative')
+    else:
+           print('neutral')
